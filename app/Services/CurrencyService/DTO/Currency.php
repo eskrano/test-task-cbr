@@ -2,7 +2,9 @@
 
 namespace App\Services\CurrencyService\DTO;
 
-class Currency
+use Illuminate\Contracts\Support\Arrayable;
+
+class Currency implements Arrayable
 {
     /**
      * @var string
@@ -94,5 +96,18 @@ class Currency
     {
         $this->value = $value;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'char_code' => $this->char_code,
+            'nominal' => $this->nominal,
+            'name' => $this->name,
+            'value' => $this->value,
+        ];
     }
 }
