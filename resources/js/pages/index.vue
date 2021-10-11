@@ -4,7 +4,40 @@
             <p>Loading...</p>
         </div>
         <div v-else>
-
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-xs-4">
+                    <PerPageSelector :current-value-prop="page" @per_page_changed="perPageChanged"/>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <th>
+                    Name [Char code - Num code]
+                </th>
+                <th>
+                    Rate
+                </th>
+                <th>
+                    Max / Min / Average Rates
+                </th>
+                </thead>
+                <tbody>
+                <tr v-for="item in items">
+                    <td>
+                        <router-link :to="{name:'view', params: {id:item.id}}">{{ item.name }} [{{ item.code }} -
+                            {{ item.num_code }}]
+                        </router-link>
+                    </td>
+                    <td>
+                        {{ parseFloat(item.rate).toFixed(4) }}
+                    </td>
+                    <td>
+                        {{ parseFloat(item.max).toFixed(4) }} / {{ parseFloat(item.min).toFixed(4) }} /
+                        {{ parseFloat(item.avg).toFixed(4) }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
             <Paginator
                 :current_page="page"
                 :has_more_pages="paginator.has_more_pages"
@@ -17,8 +50,10 @@
 </template>
 <script>
 import Paginator from "../components/Paginator";
+import PerPageSelector from '../components/PerPageSelector'
+
 export default {
-    components: {Paginator},
+    components: {Paginator, PerPageSelector},
     data: () => ({
         items: [],
         page_size: 10,
@@ -35,17 +70,26 @@ export default {
         this.fetchItems().then(data => vm.parseResponse(data));
     },
     methods: {
-        fetchItems() {
-            return fetch(`/api/currency/all?page_size=${this.page_size}&page=${this.page}`).then(res => res.json())
+        fetchItems(page_size = this.page_size, page = this.page) {
+            return fetch(`/api/currency/all?page_size=${page_size}&page=${page}`).then(res => res.json())
         },
         parseResponse(data) {
-            this.items = data.data;
+
+
+            this.page = data.meta.current_page;
+            this.page_size = data.meta.per_page;
             this.paginator.has_more_pages = data.meta.last_page !== 1;
             this.paginator.current_page = data.meta.current_page;
             this.paginator.total_pages = data.meta.last_page;
+            this.items = data.data;
         },
         changePage(page) {
-            console.log(page)
+            let vm = this;
+            this.fetchItems(this.page_size, page).then(data => vm.parseResponse(data))
+        },
+        perPageChanged(per_page) {
+            let vm = this;
+            this.fetchItems(per_page, 1).then(data => vm.parseResponse(data))
         }
     }
 }

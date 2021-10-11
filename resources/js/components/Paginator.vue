@@ -2,7 +2,7 @@
     <div>
         <div class="row mt-3">
             <div v-for="page in max_page" class="col-sm-1">
-                <a href="#" @click="$emit('page_click', page)" class="btn btn-outline-primary btn-sm">{{
+                <a v-if="current_page !== page" href="#" @click="$emit('page_click', page)" class="btn btn-outline-primary btn-sm">{{
                         page
                     }}</a>
             </div>
