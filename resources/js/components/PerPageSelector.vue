@@ -19,7 +19,7 @@ export default {
         }
     },
     created() {
-        this.currentValue = this.props.currentValueProp
+        this.currentValue = this.currentValueProp
     }
 }
 </script>
