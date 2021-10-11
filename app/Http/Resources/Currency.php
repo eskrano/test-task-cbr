@@ -35,12 +35,20 @@ class Currency extends JsonResource
             'nominal' => $this->nominal,
             'rate' => $this->whenLoaded('dayData', $request->has('base_currency_id') ?
                 $this->convert_service->convertById(
-                    $this->dayData->first()->rate,
+                    $this->dayData->first()->rate ?? $this->createRateNotFoundException(),
                     (int)$request->get('base_currency_id'),
                     $this->nominal,
                     Carbon::createFromFormat('Y-m-d', $request->get('date', now()->format('Y-m-d')))->timestamp
                 )
                 : $this->dayData->first()->rate)
         ];
+    }
+
+    /**
+     * @throws \InvalidArgumentException
+     */
+    private function createRateNotFoundException()
+    {
+        throw new \InvalidArgumentException("Rate for given date not found.");
     }
 }

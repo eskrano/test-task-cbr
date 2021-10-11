@@ -11,6 +11,7 @@ use App\Queries\CurrencyHistoryQuery;
 use App\Queries\CurrencyQuery;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Http\Request;
+use \App\Http\Resources\Currency as CurrencyResource;
 
 class CurrencyController extends Controller
 {
@@ -36,7 +37,7 @@ class CurrencyController extends Controller
 
     public function show(Currency $currency): \App\Http\Resources\Currency
     {
-        return \App\Http\Resources\Currency::make(
+        return CurrencyResource::make(
             app(Pipeline::class)
                 ->send(Currency::query())
                 ->through([
