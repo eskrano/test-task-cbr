@@ -8,6 +8,9 @@
                 <div class="col-sm-4 col-md-4 col-xs-4">
                     <PerPageSelector :current-value-prop="page" @per_page_changed="perPageChanged"/>
                 </div>
+                <div class="col-sm-4 col-md-4 col-xs-4">
+                    <BaseCurrencySelector :currencies="items" @currency_selected="baseCurrencyChanged"/>
+                </div>
             </div>
             <table class="table table-bordered table-striped">
                 <thead>
@@ -51,9 +54,10 @@
 <script>
 import Paginator from "../components/Paginator";
 import PerPageSelector from '../components/PerPageSelector'
+import BaseCurrencySelector from '../components/BaseCurrencySelector'
 
 export default {
-    components: {Paginator, PerPageSelector},
+    components: {Paginator, PerPageSelector, BaseCurrencySelector},
     data: () => ({
         items: [],
         page_size: 10,
@@ -70,8 +74,18 @@ export default {
         this.fetchItems().then(data => vm.parseResponse(data));
     },
     methods: {
-        fetchItems(page_size = this.page_size, page = this.page) {
-            return fetch(`/api/currency/all?page_size=${page_size}&page=${page}`).then(res => res.json())
+        fetchItems(page_size = this.page_size, page = this.page, base_currency = this.base_currency_id) {
+            let uri = `/api/currency/all?page_size=${page_size}&page=${page}`
+
+            if (null !== base_currency) {
+                uri += `&base_currency_id=${base_currency}`
+            }
+
+            return fetch(
+                uri
+            ).then(
+                res => res.json()
+            )
         },
         parseResponse(data) {
 
@@ -90,6 +104,11 @@ export default {
         perPageChanged(per_page) {
             let vm = this;
             this.fetchItems(per_page, 1).then(data => vm.parseResponse(data))
+        },
+        baseCurrencyChanged(base_currency) {
+            let vm = this;
+            this.base_currency_id = base_currency
+            this.fetchItems(this.page_size, this.page, base_currency).then(data => vm.parseResponse(data))
         }
     }
 }
