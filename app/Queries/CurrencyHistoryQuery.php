@@ -22,6 +22,8 @@ class CurrencyHistoryQuery
             $builder->where('sync_date', '<=', $to);
         }
 
+        $builder->with('currency');
+
         return $builder;
     }
 }
