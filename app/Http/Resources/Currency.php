@@ -40,7 +40,10 @@ class Currency extends JsonResource
                     $this->nominal,
                     Carbon::createFromFormat('Y-m-d', $request->get('date', now()->format('Y-m-d')))->timestamp
                 )
-                : $this->dayData->first()->rate)
+                : $this->dayData->first()->rate),
+            'max' => $this->day_data_max_rate ?? null,
+            'min' => $this->day_data_min_rate ?? null,
+            'avg' => $this->day_data_avg_rate ?? null,
         ];
     }
 
