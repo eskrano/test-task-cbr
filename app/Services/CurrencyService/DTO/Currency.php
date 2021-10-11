@@ -27,6 +27,29 @@ class Currency implements Arrayable
     protected float $value;
 
     /**
+     * @var string
+     */
+    protected string $num_code;
+
+    /**
+     * @return string
+     */
+    public function getNumCode(): string
+    {
+        return $this->num_code;
+    }
+
+    /**
+     * @param string $num_code
+     * @return Currency
+     */
+    public function setNumCode(string $num_code): Currency
+    {
+        $this->num_code = $num_code;
+        return $this;
+    }
+    
+    /**
      * @return string
      */
     public function getCharCode(): string

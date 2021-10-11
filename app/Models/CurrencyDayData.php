@@ -13,6 +13,11 @@ class CurrencyDayData extends Model
     protected $fillable = [
         'rate',
         'currency_id',
+        'sync_date',
+    ];
+
+    protected $dates = [
+        'sync_date'
     ];
 
     /**

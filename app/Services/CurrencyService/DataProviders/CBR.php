@@ -49,8 +49,8 @@ class CBR implements CurrencyServiceDataProviderContract
                     ->setCharCode($item['CharCode'])
                     ->setName($item['Name'])
                     ->setNominal($item['Nominal'])
-                    ->setValue(floatval($item['Value'])
-                    )
+                    ->setValue(floatval($item['Value']))
+                    ->setNumCode($item['NumCode'])
             );
         }
 

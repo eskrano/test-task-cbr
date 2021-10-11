@@ -15,8 +15,9 @@ class CreateCurrencyDayDataTable extends Migration
     {
         Schema::create('currency_day_data', function (Blueprint $table) {
             $table->id();
-            $table->decimal('rate', 8, 8, true);
+            $table->decimal('rate', 18, 8, true);
             $table->foreignId('currency_id')->references('id')->on('currencies');
+            $table->date('sync_date');
             $table->timestamps();
         });
     }
