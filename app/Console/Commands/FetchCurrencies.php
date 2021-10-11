@@ -37,6 +37,7 @@ class FetchCurrencies extends Command
     /**
      * Execute the console command.
      *
+     * @param CurrencyServiceContract $currencyService
      * @return int
      */
     public function handle(CurrencyServiceContract $currencyService): int

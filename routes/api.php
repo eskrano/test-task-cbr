@@ -17,3 +17,20 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::group(['prefix' => 'currency'], function () {
+    Route::get('/all')
+        ->uses([\App\Http\Controllers\API\CurrencyController::class, 'all'])
+        ->name('api.currency.all');
+
+    Route::get('/{currency}')
+        ->uses([\App\Http\Controllers\API\CurrencyController::class, 'show'])
+        ->name('api.currency.history')
+        ->where('currency', '[0-9]+');
+
+    Route::get('/{currency}/history')
+        ->uses([\App\Http\Controllers\API\CurrencyController::class, 'history'])
+        ->name('api.currency.history')
+        ->where('currency', '[0-9]+');
+});
