@@ -17,6 +17,7 @@ class Currency extends Model
         'code',
         'num_code',
         'name',
+        'nominal',
     ];
 
     /**

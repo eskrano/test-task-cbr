@@ -18,6 +18,7 @@ class CreateCurrenciesTable extends Migration
             $table->string('code');
             $table->string('num_code');
             $table->string('name');
+            $table->integer('nominal')->default(1);
 
             $table->timestamps();
         });

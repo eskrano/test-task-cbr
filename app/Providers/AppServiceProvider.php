@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\ConvertService\ConvertService;
+use App\Services\ConvertService\ConvertServiceContract;
 use App\Services\CurrencyService\CurrencyService;
 use App\Services\CurrencyService\CurrencyServiceContract;
 use App\Services\CurrencyService\CurrencyServiceDataProviderContract;
@@ -16,6 +18,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
+        /**
+         * Convert service register
+         */
+
+        $this->app->bind(ConvertServiceContract::class, ConvertService::class);
+
         /**
          * Register currency services
          */

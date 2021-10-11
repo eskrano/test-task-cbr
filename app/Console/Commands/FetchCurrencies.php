@@ -64,7 +64,8 @@ class FetchCurrencies extends Command
         $currency_db = CurrencyModel::updateOrCreate([
             'code' => $currency->getCharCode(),
             'num_code' => $currency->getNumCode(),
-            'name' => $currency->getName()
+            'name' => $currency->getName(),
+            'nominal' => $currency->getNominal(),
         ], ['code' => $currency->getCharCode()]);
 
         if (!$currency_db->dayData()->where('sync_date', now()->format('Y-m-d'))->exists()) {
