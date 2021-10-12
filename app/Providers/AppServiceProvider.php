@@ -32,7 +32,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             CurrencyServiceDataProviderContract::class,
             function ($app) {
+
                 $dp_class = config('currency.providers')[config('currency.default_provider')] ?? null;
+
+                if (config('app.env') === 'testing') {
+                    $dp_class = config('currency.providers')['test'] ?? null;
+                }
 
                 if (null === $dp_class) {
                     throw new \InvalidArgumentException("Currency default provider not found.");
