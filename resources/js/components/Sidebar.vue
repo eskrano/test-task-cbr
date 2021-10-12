@@ -2,9 +2,9 @@
     <div>
         <div class="card">
             <div class="list-group">
-                <a href="#" class="list-group-item">
-                    Currency list
-                </a>
+                <router-link :to="{name:'index'}" class="list-group-item">
+                    All currencies
+                </router-link>
             </div>
         </div>
     </div>

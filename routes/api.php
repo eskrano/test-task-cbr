@@ -24,6 +24,10 @@ Route::group(['prefix' => 'currency'], function () {
         ->uses([\App\Http\Controllers\API\CurrencyController::class, 'all'])
         ->name('api.currency.all');
 
+    Route::get('/all_flatten')
+        ->uses([\App\Http\Controllers\API\CurrencyController::class, 'allFlatten'])
+        ->name('api.currency.all_flatten');
+
     Route::get('/{currency}')
         ->uses([\App\Http\Controllers\API\CurrencyController::class, 'show'])
         ->name('api.currency.history')

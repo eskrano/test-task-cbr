@@ -14,7 +14,7 @@ export default router
  */
 function createRouter () {
     return new Router({
-        mode: 'history',
+        mode: 'hash',
         routes
     })
 }

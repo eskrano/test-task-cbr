@@ -77,7 +77,7 @@ export default {
         fetchItems(page_size = this.page_size, page = this.page, base_currency = this.base_currency_id) {
             let uri = `/api/currency/all?page_size=${page_size}&page=${page}`
 
-            if (null !== base_currency) {
+            if (null !== base_currency && 0 !== base_currency && '0' !== base_currency) {
                 uri += `&base_currency_id=${base_currency}`
             }
 

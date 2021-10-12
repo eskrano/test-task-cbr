@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CurrencyFlattenCollection;
 use App\Http\Resources\CurrencyHistoryCollection;
 use App\Models\Currency;
 use App\Http\Resources\CurrencyCollection;
@@ -35,11 +36,11 @@ class CurrencyController extends Controller
         );
     }
 
-    public function show(Currency $currency): \App\Http\Resources\Currency
+    public function show($currency): \App\Http\Resources\Currency
     {
         return CurrencyResource::make(
             app(Pipeline::class)
-                ->send(Currency::query())
+                ->send(Currency::where('id', $currency))
                 ->through([
                     CurrencyQuery::class,
                 ])
@@ -62,9 +63,28 @@ class CurrencyController extends Controller
                     CurrencyHistoryQuery::class,
                 ])
                 ->thenReturn()
-                ->paginate(
-                    $request->get('page_size', 10)
-                )
+//                ->paginate(
+//                    $request->get('page_size', 10)
+//                )
+                ->get()
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return CurrencyFlattenCollection
+     */
+    public function allFlatten(Request $request): CurrencyFlattenCollection
+    {
+        return CurrencyFlattenCollection::make(
+            app(Pipeline::class)
+                ->send(Currency::query())
+                ->through([
+                    CurrencyQuery::class,
+                ])
+                ->thenReturn()
+                ->select('id', 'name')
+                ->get()
         );
     }
 }

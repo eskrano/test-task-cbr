@@ -23,6 +23,7 @@ class CurrencyHistoryQuery
         }
 
         $builder->with('currency');
+        $builder->orderBy('sync_date', 'asc');
 
         return $builder;
     }
