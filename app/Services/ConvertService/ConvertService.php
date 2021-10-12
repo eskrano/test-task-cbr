@@ -8,6 +8,11 @@ use Illuminate\Support\Carbon;
 
 class ConvertService implements ConvertServiceContract
 {
+    /**
+     * @param float $source_rate
+     * @param float $destination_rate
+     * @return float
+     */
     public function convert(float $source_rate, float $destination_rate): float
     {
         return round($source_rate / $destination_rate, 4);

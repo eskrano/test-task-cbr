@@ -12,9 +12,7 @@ class CurrencyServiceTest extends TestCase
     use CreatesApplication;
 
     /**
-     * A basic unit test example.
      *
-     * @return void
      */
     public function test_data_provider_return_correct_dtos()
     {
