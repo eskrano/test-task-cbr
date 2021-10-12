@@ -32,10 +32,10 @@
 
             <div class="row">
                 <div class="col-sm-4 col-md-4 col-xs-6">
-                    <input type ="date" v-model="date_start"/>
+                    <input class="form-control" type="date" v-model="date_start"/>
                 </div>
                 <div class="col-sm-4 col-md-4 col-xs-6">
-                    <input type ="date" v-model="date_to"/>
+                    <input class="form-control" type="date" v-model="date_to"/>
                 </div>
             </div>
 

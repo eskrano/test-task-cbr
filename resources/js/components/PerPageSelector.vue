@@ -1,6 +1,6 @@
 <template>
     <div>
-        <select @change="$emit('per_page_changed', $event.target.value)">
+        <select class = "form-control" @change="$emit('per_page_changed', $event.target.value)">
             <option v-for="item in [5,10,50,100]" :value="item" :selected="item  === currentValue">
                 {{ item }}
             </option>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <select @change="onSelect($event.target.value)" v-if="items.length > 0">
+        <select class="form-control" @change="onSelect($event.target.value)" v-if="items.length > 0">
             <option :value="0">-</option>
             <option v-for="item in items" :key="item.id" :value="item.id" :selected="selected_value === item.id">
                 {{ item.name }}
